@@ -25,8 +25,8 @@ namespace brynet
             typedef std::function<size_t(const TCPSession::PTR&, const char*, size_t)>   DATA_CALLBACK;
 
         public:
-            const std::any&         getUD() const;
-            void                    setUD(std::any ud);
+            const std::int64_t&         getUD() const;
+            void                    setUD(std::int64_t ud);
 
             const std::string&      getIP() const;
             TcpService::SESSION_TYPE    getSocketID() const;
@@ -61,7 +61,7 @@ namespace brynet
             std::shared_ptr<IOLoopData> mIoLoopData;
             TcpService::SESSION_TYPE    mSocketID;
             std::string                 mIP;
-            std::any                    mUD;
+            std::int64_t                    mUD;
 
             CLOSE_CALLBACK              mCloseCallback;
             DATA_CALLBACK               mDataCallback;

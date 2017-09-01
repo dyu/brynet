@@ -1,7 +1,7 @@
 #ifndef BRYNET_NET_DATASOCKET_H_
 #define BRYNET_NET_DATASOCKET_H_
 
-#include <any>
+//#include <any>
 #include <memory>
 #include <functional>
 #include <deque>
@@ -65,8 +65,8 @@ namespace brynet
             void                            postDisConnect();
             void                            postShutdown();
 
-            void                            setUD(std::any value);
-            const std::any&                 getUD() const;
+            void                            setUD(std::int64_t value);
+            const std::int64_t&             getUD() const;
 
 #ifdef USE_OPENSSL
             bool                            initAcceptSSL(SSL_CTX*);
@@ -140,7 +140,7 @@ namespace brynet
 
             bool                            mIsPostFlush;       /*  是否已经放置flush消息的回调    */
 
-            std::any                        mUD;                /*  链接的用户自定义数据  */
+            std::int64_t                    mUD;                /*  链接的用户自定义数据  */
 
 #ifdef USE_OPENSSL
             SSL_CTX*                        mSSLCtx;            /*  mSSL不为null时，如果mSSLCtx不为null，则表示ssl的客户端链接，否则为accept链接  */

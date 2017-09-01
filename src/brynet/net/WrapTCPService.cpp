@@ -15,12 +15,12 @@ TCPSession::~TCPSession() noexcept
     mSocketID = -1;
 }
 
-const std::any& TCPSession::getUD() const
+const std::int64_t& TCPSession::getUD() const
 {
     return mUD;
 }
 
-void TCPSession::setUD(std::any ud)
+void TCPSession::setUD(std::int64_t ud)
 {
     mUD = std::move(ud);
 }

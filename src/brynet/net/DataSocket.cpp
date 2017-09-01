@@ -781,12 +781,12 @@ void DataSocket::postShutdown()
     });
 }
 
-void DataSocket::setUD(std::any value)
+void DataSocket::setUD(std::int64_t value)
 {
     mUD = std::move(value);
 }
 
-const std::any& DataSocket::getUD() const
+const std::int64_t& DataSocket::getUD() const
 {
     return mUD;
 }
