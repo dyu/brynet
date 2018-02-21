@@ -57,21 +57,21 @@ int main(int argc, char* argv[])
     }
     
     auto socket = brynet::net::TcpSocket::Create(fd, false);
-    service->addSession(std::move(socket), [uri](const brynet::net::TCPSession::PTR& session) {
+    service->addSession(std::move(socket), [uri](const brynet::net::TCPSession::PTR& tcpSession) {
         //fprintf(stdout, "Connected.\n");
-        brynet::net::HttpService::setup(session, [uri](const brynet::net::HttpSession::PTR& httpSession) {
+        brynet::net::HttpService::setup(tcpSession, [uri](const brynet::net::HttpSession::PTR& httpSession) {
             httpSession->setHttpCallback([](const brynet::net::HTTPParser& httpParser, const brynet::net::HttpSession::PTR& session) {
                 //http response handle
                 std::cout << httpParser.getBody() << std::endl;
                 exit(0);
             });
             
-            brynet::net::HttpRequest request;
-            request.setMethod(brynet::net::HttpRequest::HTTP_METHOD::HTTP_METHOD_GET);
-            request.setUrl(uri);
-
-            std::string requestStr = request.getResult();
-            httpSession->send(requestStr.c_str(), requestStr.size());
+            brynet::net::HttpRequest req;
+            req.setMethod(brynet::net::HttpRequest::HTTP_METHOD::HTTP_METHOD_GET);
+            req.setUrl(uri);
+            
+            std::string payload = req.getResult();
+            httpSession->send(payload.c_str(), payload.size());
         });
     }, false, nullptr, 1024 * 1024, false);
     
