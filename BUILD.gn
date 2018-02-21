@@ -157,3 +157,13 @@ executable("promisereceive") {
   ]
 }
 
+executable("web_binary_proxy") {
+  sources = [ "examples/WebBinaryProxy.cpp" ]
+  deps = [
+    ":utils",
+    ":timer",
+    ":net",
+    ":http",
+  ]
+}
+
