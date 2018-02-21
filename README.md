@@ -21,7 +21,7 @@ Windows : [![Build status](https://ci.appveyor.com/api/projects/status/76j8f2hyq
 2. If you use Windows, please open brynet.sln then build. If on Linux, only enter `make`.
 
 ### GN
-1. `git clone --depth 1 --single-branch -b ns https://github.com/dyu/gn-build`
+1. `git clone --depth 1 --single-branch -b cpp14 https://github.com/dyu/gn-build`
 
 2. `echo 'buildconfig = "//gn-build/config/BUILDCONFIG.gn"' > .gn`
    On windows, exclude the single quote.
