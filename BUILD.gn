@@ -1,0 +1,159 @@
+# ==================================================
+# vars
+
+src_dir = "src"
+
+config("brynet_config") {
+  include_dirs = [ "$src_dir" ]
+  if (is_win) {
+    libs = [
+      "ws2_32.lib"
+    ]
+  }
+}
+
+static_library("net") {
+  sources = [
+    # headers
+    "src/brynet/net/EventLoop.h",
+    "src/brynet/net/CurrentThread.h",
+    "src/brynet/net/DataSocket.h",
+    "src/brynet/net/SocketLibFunction.h",
+    "src/brynet/net/TCPService.h",
+    "src/brynet/net/WrapTCPService.h",
+    "src/brynet/net/Connector.h",
+    "src/brynet/net/ListenThread.h",
+    "src/brynet/net/SSLHelper.h",
+    "src/brynet/net/Socket.h",
+    "src/brynet/net/fdset.h",
+
+    "src/brynet/net/EventLoop.cpp",
+    "src/brynet/net/CurrentThread.cpp",
+    "src/brynet/net/DataSocket.cpp",
+    "src/brynet/net/SocketLibFunction.cpp",
+    "src/brynet/net/TCPService.cpp",
+    "src/brynet/net/WrapTCPService.cpp",
+    "src/brynet/net/Connector.cpp",
+    "src/brynet/net/ListenThread.cpp",
+    "src/brynet/net/SSLHelper.cpp",
+    "src/brynet/net/Socket.cpp",
+    "src/brynet/net/fdset.c",
+  ]
+  
+  public_configs = [ ":brynet_config" ]
+}
+
+source_set("timer") {
+  sources = [
+    "src/brynet/timer/Timer.h",
+    "src/brynet/timer/Timer.cpp",
+  ]
+  
+  public_configs = [ ":brynet_config" ]
+}
+
+static_library("http") {
+  sources = [
+    "src/brynet/net/http/http_parser.h",
+    "src/brynet/net/http/HttpParser.h",
+    "src/brynet/net/http/HttpService.h",
+    
+    "src/brynet/net/http/http_parser.c",
+    "src/brynet/net/http/HttpParser.cpp",
+    "src/brynet/net/http/HttpService.cpp",
+  ]
+  
+  public_configs = [ ":brynet_config" ]
+}
+
+static_library("utils") {
+  sources = [
+    "src/brynet/utils/app_status.h",
+    "src/brynet/utils/array.h",
+    "src/brynet/utils/buffer.h",
+    "src/brynet/utils/base64.h",
+    "src/brynet/utils/md5calc.h",
+    "src/brynet/utils/ox_file.h",
+    "src/brynet/utils/SHA1.h",
+    
+    "src/brynet/utils/app_status.c",
+    "src/brynet/utils/array.c",
+    "src/brynet/utils/buffer.c",
+    "src/brynet/utils/base64.cpp",
+    "src/brynet/utils/md5calc.cpp",
+    "src/brynet/utils/ox_file.cpp",
+    "src/brynet/utils/SHA1.cpp",
+  ]
+  
+  public_configs = [ ":brynet_config" ]
+}
+
+# ==================================================
+# executables
+
+executable("pingpongserver") {
+  sources = [ "examples/PingPongServer.cpp" ]
+  deps = [
+    ":utils",
+    ":timer",
+    ":net",
+  ]
+}
+
+executable("pingpongclient") {
+  sources = [ "examples/PingPongClient.cpp" ]
+  deps = [
+    ":utils",
+    ":timer",
+    ":net",
+  ]
+}
+
+executable("broadcastserver") {
+  sources = [ "examples/BroadCastServer.cpp" ]
+  deps = [
+    ":utils",
+    ":timer",
+    ":net",
+  ]
+}
+
+executable("broadcastclient") {
+  sources = [ "examples/BroadCastClient.cpp" ]
+  deps = [
+    ":utils",
+    ":timer",
+    ":net",
+  ]
+}
+
+executable("httpserver") {
+  sources = [ "examples/TestHttp.cpp" ]
+  deps = [
+    ":utils",
+    ":timer",
+    ":net",
+    ":http",
+  ]
+}
+
+executable("benchwebsocket") {
+  sources = [ "examples/BenchWebsocket.cpp" ]
+  deps = [
+    ":utils",
+    ":timer",
+    ":net",
+    ":http",
+  ]
+}
+
+executable("promisereceive") {
+  sources = [ "examples/TestPromiseReceive.cpp" ]
+  deps = [
+    ":utils",
+    ":timer",
+    ":net",
+    ":http",
+  ]
+}
+
