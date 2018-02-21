@@ -9,7 +9,7 @@
 #include <brynet/net/http/WebSocketFormat.h>
 
 static const char DEFAULT_HOST[] = "127.0.0.1";
-static const int DEFAULT_PORT = 5000;
+static const int DEFAULT_PORT = 8080;
 
 static const char* resolveIpPort(char* arg, int* port)
 {
