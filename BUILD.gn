@@ -167,3 +167,13 @@ executable("web_binary_proxy") {
   ]
 }
 
+executable("httpclient") {
+  sources = [ "examples/HttpClient.cpp" ]
+  deps = [
+    ":utils",
+    ":timer",
+    ":net",
+    ":http",
+  ]
+}
+
