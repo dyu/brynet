@@ -21,6 +21,9 @@ config("brynet_config") {
       "ssleay32.lib",
       "zlib.lib",
       "gdi32.lib",
+      #
+      "advapi32.lib",
+      "user32.lib",
     ]
   } else {
     libs = [
