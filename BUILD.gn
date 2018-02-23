@@ -3,11 +3,30 @@
 
 src_dir = "src"
 
+if (is_win) {
+  vcpkg_dir = "C:\\vcpkg\vcpkg"
+  vcpkg_lib_dir = "$vcpkg_dir\\installed\\x64-windows-static\\lib"
+  vcpkg_include_dir = "$vcpkg_dir\\installed\\x64-windows-static\\include"
+}
+
 config("brynet_config") {
+  defines = [ "USE_OPENSSL" ]
   include_dirs = [ "$src_dir" ]
   if (is_win) {
+    include_dirs += [ "$vcpkg_include_dir" ]
+    ldflags = [ "/LIBPATH:$vcpkg_lib_dir" ]
     libs = [
-      "ws2_32.lib"
+      "ws2_32.lib",
+      "libeay32.lib",
+      "ssleay32.lib",
+      "zlib.lib",
+      "gdi32.lib",
+    ]
+  } else {
+    libs = [
+      "crypto",
+      "ssl",
+      "z",
     ]
   }
 }
